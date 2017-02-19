@@ -1,5 +1,11 @@
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import sun.util.logging.PlatformLogger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -153,10 +159,20 @@ public class frmMain extends javax.swing.JFrame {
         btnDelete.setBounds(123, 10, 100, 30);
 
         Reset.setText("Clear");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetActionPerformed(evt);
+            }
+        });
         jPanel3.add(Reset);
         Reset.setBounds(233, 10, 90, 30);
 
         btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRefresh);
         btnRefresh.setBounds(333, 10, 90, 30);
 
@@ -197,12 +213,12 @@ public class frmMain extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Harap Lengkapi Data","Error", JOptionPane.WARNING_MESSAGE);
         } else {
             String JK = "";
-                if (rdLaki,isSelected()) {
-            JK = "L";
-            } else {
-                    JK = "P"
-                    }
-            String SQL = "INSERT INTO t_siswa (NIS,NamasSiswa,HenisKelamin,Kelas,Email,Alamat)"
+                if (rdLaki.isSelected()) {
+                    JK = "L";
+                } else {
+                    JK = "P";
+                }
+            String SQL ="INSER INTO t_siswa (NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat)"
                     + "VALUES('"+txtNIS.getText()+"','"+txtNama.getText()+"','"+JK+"',"
                     + "'"+txtKelas.getText()+"','"+txtEmail.getText()+"','"+txtAlamat.getText()+"')";
             int status = KoneksiDB.execute(SQL);
@@ -232,6 +248,23 @@ public class frmMain extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih Baris Data Terebih Dahulu", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        // TODO add your handling code here:
+        
+        txtNama.setText("");
+        txtNIS.setText("");
+        txtKelas.setText("");
+        buttonGroup1.clearSelection();
+        txtEmail.setText("");
+        txtAlamat.setText("");
+    }//GEN-LAST:event_ResetActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        
+        selectData();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,4 +331,31 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JTextField txtNIS;
     private javax.swing.JTextField txtNama;
     // End of variables declaration//GEN-END:variables
+
+    private void selectData() {
+        String kolom[] = {"NIS","NamaSiswa","JenisKelamin","Kelas","Email","Alamat"};
+        DefaultTableModel dtm = new DefaultTableModel(null, kolom);
+        String SQL = "SELECT * FROM t_siswa";
+        ResultSet rs = KoneksiDB.executeQuery(SQL);
+        try {
+            while(rs.next()) {
+                String NIS = rs.getString(1);
+                String NamaSiswa = rs.getString(2);
+                String JenisKelamin = "";
+                if ("L".equals(rs.getString(3))) {
+                    JenisKelamin = "Laki-Laki";
+                } else {
+                    JenisKelamin = "Perempuan";
+                }
+                String Kelas = rs.getString(4);
+                String Email = rs.getString(5);
+                String Alamat = rs.getString(6);
+                String data[] = {NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat};
+                dtm.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tblData.setModel(dtm);
+    }
 }
