@@ -26,20 +26,45 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        btnSignIn = new javax.swing.JButton();
+        btnSignUp = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        txtPass = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PASSWORD");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(110, 130, 180, 30);
 
-        pack();
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("USERNAME");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(110, 40, 180, 30);
+        getContentPane().add(txtNama);
+        txtNama.setBounds(90, 80, 230, 30);
+
+        btnSignIn.setText("Sign In");
+        getContentPane().add(btnSignIn);
+        btnSignIn.setBounds(290, 240, 90, 30);
+
+        btnSignUp.setText("Sign Up");
+        getContentPane().add(btnSignUp);
+        btnSignUp.setBounds(10, 240, 90, 30);
+
+        btnExit.setText("Exit");
+        getContentPane().add(btnExit);
+        btnExit.setBounds(150, 240, 90, 30);
+        getContentPane().add(txtPass);
+        txtPass.setBounds(90, 170, 230, 30);
+
+        setSize(new java.awt.Dimension(416, 339));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -78,5 +103,12 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnSignIn;
+    private javax.swing.JButton btnSignUp;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
 }
