@@ -292,13 +292,13 @@ public class frmMain extends javax.swing.JFrame {
                     + "WHERE NIS='"+txtNIS.getText()+"'";
             int status = KoneksiDB.execute(SQL);
             if (status == 1) {
-                JOptionPane.showMessageDialog(this, "Data berhasil diupdate", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Data berhasil diu", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 selectData();
             } else {
-                JOptionPane.showMessageDialog(this, "Data gagal dipdate", "Gagal", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Data gagal ditambahkan", "Gagal", JOptionPane.WARNING_MESSAGE);
             }
     }//GEN-LAST:event_btnEditActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
