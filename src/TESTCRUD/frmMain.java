@@ -1,3 +1,5 @@
+package TESTCRUD;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -137,6 +139,11 @@ public class frmMain extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnEdit);
         btnEdit.setBounds(433, 10, 90, 30);
 
@@ -206,8 +213,7 @@ public class frmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        
+      
         if("".equals(txtNIS.getText()) || "".equals(txtNama.getText()) ||
                 "".equals(txtKelas.getText()) || "".equals(txtAlamat.getText()) || "".equals(txtEmail.getText())) {
             JOptionPane.showMessageDialog(this, "Harap Lengkapi Data","Error", JOptionPane.WARNING_MESSAGE);
@@ -218,7 +224,7 @@ public class frmMain extends javax.swing.JFrame {
                 } else {
                     JK = "P";
                 }
-            String SQL ="INSER INTO t_siswa (NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat)"
+            String SQL ="INSERT INTO t_siswa(NIS,NamaSiswa,JenisKelamin,Kelas,Email,Alamat)"
                     + "VALUES('"+txtNIS.getText()+"','"+txtNama.getText()+"','"+JK+"',"
                     + "'"+txtKelas.getText()+"','"+txtEmail.getText()+"','"+txtAlamat.getText()+"')";
             int status = KoneksiDB.execute(SQL);
@@ -226,7 +232,7 @@ public class frmMain extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 selectData();
             } else {
-                JOptionPane.showMessageDialog(this, "Data gagal ditambahkan", "Sukses", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Data gagal ditambahkan", "Gagal", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -247,6 +253,8 @@ public class frmMain extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Pilih Baris Data Terebih Dahulu", "Error", JOptionPane.WARNING_MESSAGE);
         }
+        
+        selectData();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
@@ -265,6 +273,31 @@ public class frmMain extends javax.swing.JFrame {
         
         selectData();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        if("".equals(txtNIS.getText()) || "".equals(txtNama.getText()) ||
+                "".equals(txtKelas.getText()) || "".equals(txtAlamat.getText()) || "".equals(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(this, "Harap Lengkapi Data","Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String JK = "";
+                if (rdLaki.isSelected()) {
+                    JK = "L";
+                } else {
+                    JK = "P";
+                }
+            String SQL = "UPDATE t_siswa SET "
+                    + "WHERE NamaSiswa='"+txtNama.getText()+"',"+ "WHERE JenisKelamin='"+JK+"',"
+                    + "WHERE Kelas='"+txtKelas.getText()+"',"+ "WHERE Email='"+txtEmail.getText()+"',"
+                    + "WHERE Alamat='"+txtAlamat.getText()+"'" 
+                    + "WHERE NIS='"+txtNIS.getText()+"'";
+            int status = KoneksiDB.execute(SQL);
+            if (status == 1) {
+                JOptionPane.showMessageDialog(this, "Data berhasil diupdate", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                selectData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Data gagal dipdate", "Gagal", JOptionPane.WARNING_MESSAGE);
+            }
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments

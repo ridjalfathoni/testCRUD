@@ -1,5 +1,6 @@
+package TESTCRUD;
 
-import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,18 +88,16 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
-        
         String username = txtNama.getText();
         String password = txtPass.getText();
         
         try {
             try (Statement statement = (Statement) file_koneksi.GetConnection().createStatement()) {
-                statement.executeUpdate("insert into tb_akun(username, password) VALUES ('"+username+"','"+password+"');");
+                statement.executeUpdate("INSERT INTO tb_akun(username, password) VALUES ('"+username+"','"+password+"');");
             }
             JOptionPane.showMessageDialog(null, "Selamat! anda berhasil sign Up!");
         } catch (Exception t) {
-            JOptionPane.showMessageDialog(null, "Mohon maaf, ulangi lagi prosedur");
+            JOptionPane.showMessageDialog(null, "Mohon maaf, SignUp Gagal");
         }
     }//GEN-LAST:event_btnSignUpActionPerformed
 
@@ -108,8 +107,8 @@ public class Login extends javax.swing.JFrame {
         Connection connection;
         PreparedStatement ps;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_testkoneksi?zeroDateTimeBehavior=convertToNull", "root", "");
-            ps = connection.prepareStatement("SELECT 'username', 'password' FROM 'tb_akun' WHERE 'username' = ? AND 'password' = ?");
+            connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/testkoneksi_db?zeroDateTimeBehavior=convertToNull", "root", "");
+            ps = connection.prepareStatement("SELECT * FROM `tb_akun` WHERE username = ? AND password = ?");
             ps.setString(1, txtNama.getText());
             ps.setString(2, txtPass.getText());
             ResultSet result = ps.executeQuery();
