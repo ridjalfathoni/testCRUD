@@ -1,3 +1,12 @@
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -50,10 +59,20 @@ public class Login extends javax.swing.JFrame {
         txtNama.setBounds(90, 80, 230, 30);
 
         btnSignIn.setText("Sign In");
+        btnSignIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignInActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSignIn);
         btnSignIn.setBounds(290, 240, 90, 30);
 
         btnSignUp.setText("Sign Up");
+        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignUpActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnSignUp);
         btnSignUp.setBounds(10, 240, 90, 30);
 
@@ -66,6 +85,46 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(416, 339));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
+        // TODO add your handling code here:
+        
+        String username = txtNama.getText();
+        String password = txtPass.getText();
+        
+        try {
+            try (Statement statement = (Statement) file_koneksi.GetConnection().createStatement()) {
+                statement.executeUpdate("insert into tb_akun(username, password) VALUES ('"+username+"','"+password+"');");
+            }
+            JOptionPane.showMessageDialog(null, "Selamat! anda berhasil sign Up!");
+        } catch (Exception t) {
+            JOptionPane.showMessageDialog(null, "Mohon maaf, ulangi lagi prosedur");
+        }
+    }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
+        // TODO add your handling code here:
+        
+        Connection connection;
+        PreparedStatement ps;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_testkoneksi?zeroDateTimeBehavior=convertToNull", "root", "");
+            ps = connection.prepareStatement("SELECT 'username', 'password' FROM 'tb_akun' WHERE 'username' = ? AND 'password' = ?");
+            ps.setString(1, txtNama.getText());
+            ps.setString(2, txtPass.getText());
+            ResultSet result = ps.executeQuery();
+            if(result.next()){
+                new frmMain().show();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Salah!");
+                txtPass.setText("");
+                txtNama.requestFocus();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "gagal");
+        }
+    }//GEN-LAST:event_btnSignInActionPerformed
 
     /**
      * @param args the command line arguments

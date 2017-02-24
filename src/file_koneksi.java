@@ -9,5 +9,9 @@
  * @author Ridjal Fathoni
  */
 public class file_koneksi {
+
+    static Object GetConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
