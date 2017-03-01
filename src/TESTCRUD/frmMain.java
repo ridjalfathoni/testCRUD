@@ -139,11 +139,6 @@ public class frmMain extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
         jPanel3.add(btnEdit);
         btnEdit.setBounds(433, 10, 90, 30);
 
@@ -240,7 +235,7 @@ public class frmMain extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         
-        int baris = tblData.getSelectedRow();
+        int baris = tblDaa.getSelectedRow();
         if (baris != - 1) {
             String NIS = tblData.getValueAt(baris, 0).toString();
             String SQL = "DELETE FROM t_siswa WHERE NIS='"+NIS+"'";
@@ -273,31 +268,6 @@ public class frmMain extends javax.swing.JFrame {
         
         selectData();
     }//GEN-LAST:event_btnRefreshActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        if("".equals(txtNIS.getText()) || "".equals(txtNama.getText()) ||
-                "".equals(txtKelas.getText()) || "".equals(txtAlamat.getText()) || "".equals(txtEmail.getText())) {
-            JOptionPane.showMessageDialog(this, "Harap Lengkapi Data","Error", JOptionPane.WARNING_MESSAGE);
-        } else {
-            String JK = "";
-                if (rdLaki.isSelected()) {
-                    JK = "L";
-                } else {
-                    JK = "P";
-                }
-            String SQL = "UPDATE t_siswa SET "
-                    + "WHERE NamaSiswa='"+txtNama.getText()+"',"+ "WHERE JenisKelamin='"+JK+"',"
-                    + "WHERE Kelas='"+txtKelas.getText()+"',"+ "WHERE Email='"+txtEmail.getText()+"',"
-                    + "WHERE Alamat='"+txtAlamat.getText()+"'" 
-                    + "WHERE NIS='"+txtNIS.getText()+"'";
-            int status = KoneksiDB.execute(SQL);
-            if (status == 1) {
-                JOptionPane.showMessageDialog(this, "Data berhasil diu", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                selectData();
-            } else {
-                JOptionPane.showMessageDialog(this, "Data gagal ditambahkan", "Gagal", JOptionPane.WARNING_MESSAGE);
-            }
-    }//GEN-LAST:event_btnEditActionPerformed
     }
     /**
      * @param args the command line arguments
