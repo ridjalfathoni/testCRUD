@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sun.util.logging.PlatformLogger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -113,12 +114,12 @@ public class frmMain extends javax.swing.JFrame {
         buttonGroup1.add(rdLaki);
         rdLaki.setText("Laki - Laki");
         jPanel2.add(rdLaki);
-        rdLaki.setBounds(10, 190, 71, 23);
+        rdLaki.setBounds(10, 190, 100, 23);
 
         buttonGroup1.add(rdPerempuan);
         rdPerempuan.setText("Perempuan");
         jPanel2.add(rdPerempuan);
-        rdPerempuan.setBounds(110, 190, 79, 23);
+        rdPerempuan.setBounds(110, 190, 90, 23);
         jPanel2.add(txtKelas);
         txtKelas.setBounds(10, 250, 200, 30);
         jPanel2.add(txtEmail);
@@ -138,6 +139,11 @@ public class frmMain extends javax.swing.JFrame {
         jPanel3.setLayout(null);
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnEdit);
         btnEdit.setBounds(433, 10, 90, 30);
 
